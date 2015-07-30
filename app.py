@@ -1,0 +1,36 @@
+from flask import Flask, render_template, request
+from flask.ext.sqlalchemy import SQLAlchemy
+im
+import os
+import datetime
+app = Flask(__name__)
+app.config["SQLALCHEMY_DATABASE_URI"] = os.environ['DATABASE_URL']
+db = SQLAlchemy(app)
+
+#http://blog.y3xz.com/blog/2012/08/16/flask-and-postgresql-on-heroku
+
+class Logger(db.Model):
+	id = db.Column(db.Integer, primary_key=True)
+	caller = db.Column(db.String(400))
+	timestamp = db.Column(db.DateTime, default=datetime.datetime.now)
+
+	def __init__(self,caller):
+		self.caller = caller
+
+	def __repr__(self):
+		return '<ip_addr %r>' % self.ip_address
+
+
+@app.route("/index",methods=["GET","POST"])
+@app.route("/",methods=["GET","POST"])
+def index():
+	from_number = request.values.get('From',None)
+        resp = twilio.twiml.Response()
+        resp.say("Hi, I think you have a wrong number")
+	call = Logger(caller)
+	db.session.add(call)
+	db.session.commit()
+	return str(resp)
+
+if __name__ == '__main__':
+	app.run(debug=True)

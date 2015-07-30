@@ -2,8 +2,10 @@ from flask import Flask, request, redirect
 import twilio.twiml
 from flask.ext.sqlalchemy import SQLAlchemy
 import os
+import datetime
  
 app = Flask(__name__)
+#app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:////database.db"
 app.config["SQLALCHEMY_DATABASE_URI"] = os.environ['DATABASE_URL']
 db = SQLAlchemy(app)
  
@@ -26,9 +28,10 @@ def hello_monkey():
     resp = twilio.twiml.Response()
     resp.say("Hello Monkey")    
     print from_number
-    call = Logger(from_number)
-    db.session.add(call)
-    db.session.commit()
+    if from_number:
+        call = Logger(from_number)
+        db.session.add(call)
+        db.session.commit()
     return str(resp)
  
 if __name__ == "__main__":

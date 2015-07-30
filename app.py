@@ -10,9 +10,8 @@ def hello_monkey():
     # Get the caller's phone number from the incoming Twilio request
     from_number = request.values.get('From', None)
     resp = twilio.twiml.Response()
-    resp.say("Hello Monkey")
- 
-    return str(resp),from_number
+    resp.say("Hello Monkey")    
+    return str(resp)
  
 if __name__ == "__main__":
     app.run(debug=True)

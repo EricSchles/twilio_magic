@@ -11,10 +11,8 @@ def hello_monkey():
     from_number = request.values.get('From', None)
     resp = twilio.twiml.Response()
     resp.say("Hello Monkey")    
-    if from_number:
-        return str(from_number)
-    else:
-        return str(resp)
+    print from_number
+    return str(resp)
  
 if __name__ == "__main__":
     app.run(debug=True)

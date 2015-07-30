@@ -8,7 +8,7 @@ app.config["SQLALCHEMY_DATABASE_URI"] = os.environ['DATABASE_URL']
 db = SQLAlchemy(app)
 
 #http://blog.y3xz.com/blog/2012/08/16/flask-and-postgresql-on-heroku
-
+#https://www.twilio.com/docs/quickstart/python/twiml/greet-caller-by-name
 class Logger(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	caller = db.Column(db.String(400))

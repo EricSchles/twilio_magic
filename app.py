@@ -24,13 +24,16 @@ class Logger(db.Model):
 @app.route("/index",methods=["GET","POST"])
 @app.route("/",methods=["GET","POST"])
 def index():
-	from_number = request.values.get('From',None)
-        resp = twilio.twiml.Response()
-        resp.say("Hi, I think you have a wrong number")
-	call = Logger(caller)
-	db.session.add(call)
-	db.session.commit()
-	return str(resp)
+        if from_number:
+                from_number = request.values.get('From',None)
+                resp = twilio.twiml.Response()
+                resp.say("Hi, I think you have a wrong number")
+                call = Logger(caller)
+                db.session.add(call)
+                db.session.commit()
+                return str(resp)
+        else:
+                return "hi there"
 
 if __name__ == '__main__':
 	app.run(debug=True)
